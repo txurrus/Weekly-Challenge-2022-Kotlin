@@ -17,3 +17,38 @@ package com.mouredev.weeklychallenge2022
  *   https://retosdeprogramacion.com/semanales2022.
  *
  */
+public class Program
+{
+   public static void main(String[] args) {
+      try {
+         System.out.println(binarioADecimal("1101010111"));
+         System.out.println(binarioADecimal("11"));
+         System.out.println(binarioADecimal("0"));
+         System.out.println(binarioADecimal("1000005"));
+      } catch(binarioExcepcion be) {
+         System.out.println(be.getMessage());
+      }
+   }
+   
+   public static int binarioADecimal(String binario) throws binarioExcepcion {
+      if (!binario.matches("^[0-1]+")) {
+         throw new binarioExcepcion("El número " + binario + " no es un número binario.");
+      }
+      
+      int decimal = 0;
+      int potencia = 0;
+      
+      for(int i = binario.length(); i > 0; i--) {
+         decimal += Character.getNumericValue(binario.charAt(i - 1)) * Math.pow(2, potencia);
+         potencia++;
+      }
+
+      return decimal;
+   }
+   
+   public static class binarioExcepcion extends Exception {
+      public binarioExcepcion(String mensajeError) {
+         super(mensajeError);
+      }
+   }
+}
